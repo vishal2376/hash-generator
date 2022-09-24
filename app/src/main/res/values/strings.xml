@@ -6,4 +6,12 @@
     <string name="clear">Clear</string>
     <string name="sha_256">SHA-256</string>
     <string name="generate">Generate</string>
+
+    <string-array name="hash_algorithm">
+        <item>SHA-256</item>
+        <item>SHA-512</item>
+        <item>MD5</item>
+    </string-array>
+
+
 </resources>
