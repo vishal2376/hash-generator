@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Hash Generator</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hash_generator">Hash Generator</string>
+    <string name="text_here">Text here…</string>
+    <string name="clear">Clear</string>
+    <string name="sha_256">SHA-256</string>
+    <string name="generate">Generate</string>
 </resources>
