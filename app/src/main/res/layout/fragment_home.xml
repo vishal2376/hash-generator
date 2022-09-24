@@ -42,6 +42,7 @@
         <AutoCompleteTextView
             android:id="@+id/tvAutoComplete"
             android:layout_width="match_parent"
+            android:inputType="none"
             android:layout_height="wrap_content"
             android:hint="@string/sha_256"
             android:paddingVertical="20dp"
@@ -60,7 +61,7 @@
         android:inputType="textMultiLine"
         android:layout_marginTop="10dp"
         android:maxLines="6"
-        android:text="@string/text_here"
+        android:hint="@string/text_here"
         android:textColor="@color/grey"
         android:gravity="start|top"
         app:layout_constraintEnd_toEndOf="@+id/txtInputLayout"
