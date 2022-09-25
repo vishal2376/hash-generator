@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
         binding.btnGenerate.setOnClickListener {
             lifecycleScope.launch() {
                 applyAnimations()
+                loadFragment(SuccessFragment())
             }
         }
 
@@ -51,10 +52,12 @@ class HomeFragment : Fragment() {
             .translationXBy(-1000f)
             .duration = 400L
 
-        delay(300)
+        delay(300L)
 
         binding.viewSuccess.animate().alpha(1f).duration = 400L
         binding.imgSuccess.animate().alpha(1f).duration = 1000L
+
+        delay(1500L)
 
     }
 
@@ -67,4 +70,9 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.mainContainer, fragment)
+        transaction.commit()
+    }
 }
