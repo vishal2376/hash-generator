@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.*
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import com.vishal.hashgenerator.databinding.FragmentHomeBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -12,8 +14,19 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
+    private val homeViewModel: HomeViewModel by viewModels()
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    override fun onResume() {
+        super.onResume()
+
+        val hashAlgorithms = resources.getStringArray(R.array.hash_algorithm)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.drop_down_item, hashAlgorithms)
+        binding.tvAutoComplete.setAdapter(arrayAdapter)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,19 +38,31 @@ class HomeFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        val hashAlgorithms = resources.getStringArray(R.array.hash_algorithm)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.drop_down_item, hashAlgorithms)
-        binding.tvAutoComplete.setAdapter(arrayAdapter)
 
         //generate button
         binding.btnGenerate.setOnClickListener {
-            lifecycleScope.launch() {
-                applyAnimations()
-                loadFragment(SuccessFragment())
+            if (binding.etPlainText.text.isEmpty()) {
+                showSnackBar("Field Empty.")
+            } else {
+                lifecycleScope.launch() {
+                    applyAnimations()
+                    getHashData()
+                    loadFragment(SuccessFragment())
+                }
             }
         }
 
         return binding.root
+    }
+
+    private fun showSnackBar(message: String) {
+        val snackbar = Snackbar.make(
+            binding.rootLayout,
+            message,
+            Snackbar.LENGTH_SHORT
+        )
+        snackbar.setAction("OK") {}
+        snackbar.show()
     }
 
     private suspend fun applyAnimations() {
@@ -64,6 +89,12 @@ class HomeFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu, menu)
+    }
+
+    private fun getHashData(): String {
+        val algorithm = binding.tvAutoComplete.text.toString()
+        val plainText = binding.etPlainText.text.toString()
+        return homeViewModel.getHash(plainText,algorithm)
     }
 
     override fun onDestroy() {
