@@ -91,6 +91,13 @@ class HomeFragment : Fragment() {
         inflater.inflate(R.menu.menu, menu)
     }
 
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.clear_menu){
+            binding.etPlainText.text.clear()
+            showSnackBar("Cleared.")
+        }
+    }
+
     private fun getHashData(): String {
         val algorithm = binding.tvAutoComplete.text.toString()
         val plainText = binding.etPlainText.text.toString()
