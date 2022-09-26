@@ -15,6 +15,10 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
+    companion object{
+        var hashValue:String = String()
+    }
+
     private val homeViewModel: HomeViewModel by viewModels()
 
     private var _binding: FragmentHomeBinding? = null
@@ -47,7 +51,7 @@ class HomeFragment : Fragment() {
             } else {
                 lifecycleScope.launch() {
                     applyAnimations()
-                    getHashData()
+                    hashValue = getHashData()
                     loadFragment(SuccessFragment())
                 }
             }
