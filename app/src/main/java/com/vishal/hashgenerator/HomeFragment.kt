@@ -1,6 +1,7 @@
 package com.vishal.hashgenerator
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
@@ -91,17 +92,18 @@ class HomeFragment : Fragment() {
         inflater.inflate(R.menu.menu, menu)
     }
 
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.clear_menu){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.clear_menu) {
             binding.etPlainText.text.clear()
             showSnackBar("Cleared.")
         }
+        return true
     }
 
     private fun getHashData(): String {
         val algorithm = binding.tvAutoComplete.text.toString()
         val plainText = binding.etPlainText.text.toString()
-        return homeViewModel.getHash(plainText,algorithm)
+        return homeViewModel.getHash(plainText, algorithm)
     }
 
     override fun onDestroy() {

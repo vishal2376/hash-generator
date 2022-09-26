@@ -32,7 +32,6 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="32dp"
         app:boxBackgroundColor="@color/darkBlue"
-        android:textColorHint="@color/grey"
         app:boxStrokeColor="@color/teal_200"
         app:endIconTint="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +45,7 @@
             android:layout_width="match_parent"
             android:inputType="none"
             android:layout_height="wrap_content"
-            android:hint="@string/sha_256"
+            android:text="@string/sha_256"
             android:paddingVertical="25dp"
             android:textStyle="bold"
             android:textColor="@color/white"/>
