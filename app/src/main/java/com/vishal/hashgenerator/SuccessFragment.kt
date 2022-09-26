@@ -4,13 +4,14 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.vishal.hashgenerator.databinding.FragmentSuccessBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SuccessFragment : Fragment() {
 
@@ -29,16 +30,39 @@ class SuccessFragment : Fragment() {
 
         //copy button
         binding.btnCopy.setOnClickListener {
-            copyToClipboard(HomeFragment.hashValue)
+            lifecycleScope.launch {
+                copyToClipboard(HomeFragment.hashValue)
+                applyAnimations()
+            }
         }
 
         return binding.root
     }
 
+    // copy the hash value to clipboard
     private fun copyToClipboard(hashValue: String) {
-        val clipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clipData = ClipData.newPlainText("Encrypted Text",hashValue)
+        val clipboardManager =
+            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("Encrypted Text", hashValue)
         clipboardManager.setPrimaryClip(clipData)
+    }
+
+    private suspend fun applyAnimations() {
+
+        binding.copiedLayout.messageBg.animate().translationY(80f).duration = 200L
+        binding.copiedLayout.tvCopied.animate().translationY(80f).duration = 200L
+
+        delay(2000L)
+
+        binding.copiedLayout.messageBg.animate().translationY(-80f).duration = 500L
+        binding.copiedLayout.tvCopied.animate().translationY(-80f).duration = 500L
+
+    }
+
+    // to avoid memory leaks
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }
