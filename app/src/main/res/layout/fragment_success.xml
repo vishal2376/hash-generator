@@ -9,7 +9,10 @@
 
     <include
         android:id="@+id/copied_layout"
-        layout="@layout/copied_message" />
+        layout="@layout/copied_message"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvHash"
