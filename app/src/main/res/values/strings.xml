@@ -7,6 +7,7 @@
     <string name="sha_256">SHA-256</string>
     <string name="generate">Generate</string>
     <string name="copy">Copy</string>
+    <string name="copied">Copied</string>
 
     <string-array name="hash_algorithm">
         <item>SHA-256</item>
